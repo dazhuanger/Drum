@@ -12,10 +12,11 @@ for (var i = 0; i < document.querySelectorAll(".drum").length; i++) {
 // A callback function that detects button clicks.
 
 function detectClick() {
-// Assign the innerHTML property of the returned "this" object as a variable. Check out what "this" represents in different cases:https://www.w3schools.com/js/js_this.asp
+  // Assign the innerHTML property of the returned "this" object as a variable. Check out what "this" represents in different cases:https://www.w3schools.com/js/js_this.asp
   var buttonInnerHTML = this.innerHTML;
-// Use the variable as an input of the makeSound function.
+  // Use the variable as an input of the makeSound function.
   makeSound(buttonInnerHTML);
+  buttonAnimation(buttonInnerHTML);
 }
 
 
@@ -28,16 +29,17 @@ document.addEventListener("keydown", detectKeyPress);
 // A callback function that detects key pressed
 
 function detectKeyPress(input) {
-// The "input" inside the parentheses is just a name that represents the actual input to the function. In this case it is the key that the "keydown" eventListener detected.
-// As we can see in the console, the "keydown" eventListener detects not only the key pressed but also a lot of other properties.
-// But in order to make sound, we only need one property to make sound, there for we need to specify that single property inside the object, which is the "key".
+  // The "input" inside the parentheses is just a name that represents the actual input to the function. In this case it is the key that the "keydown" eventListener detected.
+  // As we can see in the console, the "keydown" eventListener detects not only the key pressed but also a lot of other properties.
+  // But in order to make sound, we only need one property to make sound, there for we need to specify that single property inside the object, which is the "key".
   makeSound(input.key);
+  buttonAnimation(input.key);
 }
 
 // The function that actually makes sound.
 
 function makeSound(lol) {
-// Again, the "lol" is just a name of the input of this "makeSound" function. It connects the input of the makeSound function and the expression of the switch statement inside the function.
+  // Again, the "lol" is just a name of the input of this "makeSound" function. It connects the input of the makeSound function and the expression of the switch statement inside the function.
   switch (lol) {
     case "w":
       var tom1 = new Audio("sounds/tom-1.mp3");
@@ -72,4 +74,17 @@ function makeSound(lol) {
       console.log(buttonInnerHTML);
 
   }
+}
+
+// Button animation function
+function buttonAnimation(currentKey) {
+
+  var activeButton = document.querySelector("." + currentKey);
+
+  activeButton.classList.add("pressed");
+
+  setTimeout(function(){
+    activeButton.classList.remove("pressed");
+  }, 100);
+
 }
